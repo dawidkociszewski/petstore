@@ -3,6 +3,6 @@
   Would you like to delete {{ data.name }}?
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button (click)="abortRemove()" mat-button mat-dialog-close>No</button>
-  <button (click)="confirmRemove()" cdkFocusInitial mat-button mat-dialog-close>Yes</button>
+  <button (click)="callAction(false)" mat-button mat-dialog-close>No</button>
+  <button (click)="callAction(true)" cdkFocusInitial mat-button mat-dialog-close>Yes</button>
 </mat-dialog-actions>
