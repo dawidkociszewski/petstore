@@ -1,0 +1,5 @@
+export const httpError = 'Something went wrong. Try again later.'
+export const sendValidation = 'Some fields are not valid.'
+export const petAdded = 'Pet has been added successfully.'
+export const petUpdated = 'Pet has been updated successfully.'
+export const required = 'Field required'

@@ -1,0 +1,62 @@
+<h1
+  class="mt-3 mb-3 text-center">
+  Details of pet: {{ formValue.name }}
+</h1>
+
+
+<mat-card appearance="outlined">
+  <mat-card-content>
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <div class="mb-3">
+          <label>Category: </label>
+          <strong>{{ formValue.category.name ?? '-' }}</strong>
+        </div>
+        <div class="mb-3">
+          <label>Tags: </label>
+          <strong>
+            @if (!!formValue.tags.length) {
+              @for (tag of formValue.tags; track tag; let last = $last) {
+                {{ tag.name }} @if (!last) {
+                  ,
+                }
+              }
+            } @else {
+              -
+            }
+          </strong>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <div class="d-block mb-3">
+          <label>Name: </label>
+          <strong>{{ formValue.name ?? '-' }}</strong>
+        </div>
+
+        <div class="mb-3">
+          <label>Status:</label>
+          <strong>{{ (formValue.status | getLabel: availableStatus) ?? '-' }}</strong>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label>Photo Urls:</label>
+        @if (!!formValue.photoUrls.length) {
+          <br/>
+          @for (photo of formValue.photoUrls; track photo; let last = $last; let i = $index) {
+            {{ i + 1 + '. ' + photo }} @if (!last) {
+              <br/>
+            }
+          }
+        } @else {
+          -
+        }
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<div class="d-flex justify-content-between mt-3">
+  <a mat-stroked-button routerLink="/list">< Go back</a>
+</div>

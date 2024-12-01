@@ -1,0 +1,94 @@
+<h1 class="mt-3 mb-3 text-center">Petstore list</h1>
+
+<mat-card appearance="raised" class="mb-4">
+  <mat-card-content>
+    <div [formGroup]="searchForm" class="row">
+      <div class="col-12 col-lg-5">
+        <mat-form-field class="d-block">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            @for (status of availableStatus; track status) {
+              <mat-option [value]="status.value">{{ status.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-lg-5">
+        <mat-form-field class="d-block">
+          <mat-label>Name</mat-label>
+          <input formControlName="name" matInput>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-lg-2 text-end">
+        <button (click)="reset()" mat-button>Reset</button>
+        <button (click)="search()" mat-button type="submit">Search</button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<button (click)="addPet()" class="mb-3" mat-stroked-button>Add new pet</button>
+
+
+<table [dataSource]="dataSource" mat-table matSort>
+  <ng-container matColumnDef="name">
+    <th *matHeaderCellDef mat-header-cell mat-sort-header>
+      Name
+    </th>
+    <td *matCellDef="let element" mat-cell> {{ element.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="category">
+    <th *matHeaderCellDef mat-header-cell mat-sort-header>
+      Category
+    </th>
+    <td *matCellDef="let element" mat-cell> {{ element.category?.name ?? '-' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="tags">
+    <th *matHeaderCellDef mat-header-cell mat-sort-header>
+      Tags
+    </th>
+    <td *matCellDef="let element" mat-cell>
+      @if (element.tags.length) {
+        @for (tag of element.tags; track tag; let last = $last) {
+          <span>{{ tag.name }}</span>@if (!last) {
+            ,
+          }
+        }
+      } @else {
+        -
+      }
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th *matHeaderCellDef mat-header-cell mat-sort-header>
+      Status
+    </th>
+    <td *matCellDef="let element" mat-cell> {{ element.status | getLabel: availableStatus }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th *matHeaderCellDef mat-header-cell>
+      Actions
+    </th>
+    <td *matCellDef="let element" mat-cell>
+      <button (click)="edit(element.id)" class="me-2" color="primary" mat-mini-fab>
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button (click)="remove(element.id, element.name)" class="me-2" color="primary" mat-mini-fab>
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button (click)="details(element.id)" color="primary" mat-mini-fab>
+        <mat-icon>description</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+  <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[10, 25, 50]"
+               showFirstLastButtons>
+</mat-paginator>
