@@ -23,11 +23,8 @@ export class DialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData, public dialogRef: MatDialogRef<DialogComponent>) {
   }
 
-  public abortRemove(): void {
-    this.dialogRef.close(false);
+  public callAction(type: boolean): void {
+    this.dialogRef.close(type);
   }
 
-  public confirmRemove(): void {
-    this.dialogRef.close(true);
-  }
 }
