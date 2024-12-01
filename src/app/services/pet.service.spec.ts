@@ -10,9 +10,7 @@ describe('PetService', () => {
   let service: PetService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: []
-    });
+    TestBed.configureTestingModule({});
     service = TestBed.inject(PetService);
   });
 
